@@ -1,0 +1,219 @@
+import requests
+from bs4 import BeautifulSoup
+
+def get_book_list():
+    url = "https://examplebookstore.com/books"  # Replace with the actual URL of the bookstore's book list page
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    book_list = []
+    # Use BeautifulSoup to extract the book titles, authors, and other relevant information from the webpage
+    # Append each book's details to the book_list
+    return book_list
+
+# Usage
+book_list = get_book_list()
+for book in book_list:
+    print(book)
+task 2 
+
+import requests
+
+def get_books_by_isbn(isbn):
+    url = f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}"  # Replace with the actual API endpoint
+    response = requests.get(url)
+    data = response.json()
+    books = data.get("items", [])
+    return books
+
+# Usage
+isbn = "1234567890"  # Replace with the ISBN you want to search for
+books = get_books_by_isbn(isbn)
+for book in books:
+    print(book["volumeInfo"]["title"])
+
+      task 3 
+import requests
+
+def get_books_by_author(author):
+    url = f"https://openlibrary.org/search.json?author={author}"  # Replace with the actual API endpoint
+    response = requests.get(url)
+    data = response.json()
+    books = data.get("docs", [])
+    return books
+
+# Usage
+author = "J.K. Rowling"  # Replace with the author's name you want to search for
+books = get_books_by_author(author)
+for book in books:
+    print(book["title"])
+task 4 
+import requests
+
+def get_books_by_title(title):
+    url = f"https://openlibrary.org/search.json?title={title}"  # Replace with the actual API endpoint
+    response = requests.get(url)
+    data = response.json()
+    books = data.get("docs", [])
+    return books
+
+# Usage
+title = "Harry Potter"  # Replace with the title you want to search for
+books = get_books_by_title(title)
+for book in books:
+    print(book["title"])
+task 5 
+import requests
+from bs4 import BeautifulSoup
+
+def get_book_review(book_url):
+    response = requests.get(book_url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    review = None
+    # Use BeautifulSoup to extract the book review from the webpage
+    # Assign the review value accordingly
+    return review
+
+# Example usage
+book_url = "https://examplebookstore.com/books/1234"  # Replace with the actual URL of the book's page
+review = get_book_review(book_url)
+if review is not None:
+    print(review)
+else:
+    print("No review available.")
+
+
+  task 6 
+
+import requests
+
+def register_new_user(username, email, password):
+    url = "https://examplewebsite.com/api/register"  # Replace with the actual API endpoint for user registration
+    data = {
+        "username": username,
+        "email": email,
+        "password": password
+    }
+    response = requests.post(url, json=data)
+    if response.status_code == 200:
+        print("User registered successfully.")
+    else:
+        print("User registration failed.")
+
+# Example usage
+username = "john123"
+email = "john@example.com"
+password = "secretpassword"
+register_new_user(username, email, password)
+
+
+  task 7 
+import requests
+
+def login_registered_user(username, password):
+    url = "https://examplewebsite.com/api/login"  # Replace with the actual API endpoint for user login
+    data = {
+        "username": username,
+        "password": password
+    }
+    response = requests.post(url, json=data)
+    if response.status_code == 200:
+        print("User logged in successfully.")
+        # You can store the authentication token or session cookies for future authenticated requests
+    else:
+        print("Login failed.")
+
+# Example usage
+username = "john123"
+password = "secretpassword"
+login_registered_user(username, password)
+
+  task 8
+
+add modify a book review 
+
+import requests
+
+def modify_book_review(review_id, new_review):
+    url = f"https://examplebookstore.com/api/reviews/{review_id}"  # Replace with the actual API endpoint for modifying a book review
+    data = {
+        "review": new_review
+    }
+    response = requests.put(url, json=data)
+    if response.status_code == 200:
+        print("Book review modified successfully.")
+    else:
+        print("Failed to modify the book review.")
+
+# Example usage
+review_id = 1234  # Replace with the actual review ID you want to modify
+new_review = "This book is amazing! Highly recommended."
+modify_book_review(review_id, new_review)
+
+  task 9 
+elete book review added by that particular user 
+ChatGPT
+To delete a book review added by a particular user, you would typically need appropriate authorization and access to an API or database that allows deletions.
+  Here's an example of how you can delete a book review added by a specific user using a fictional API endpoint:
+
+  import requests
+
+def delete_book_review(review_id, user_id):
+    url = f"https://examplebookstore.com/api/reviews/{review_id}"  # Replace with the actual API endpoint for deleting a book review
+    params = {
+        "user_id": user_id
+    }
+    response = requests.delete(url, params=params)
+    if response.status_code == 200:
+        print("Book review deleted successfully.")
+    else:
+        print("Failed to delete the book review.")
+
+# Example usage
+review_id = 1234  # Replace with the actual review ID you want to delete
+user_id = 5678  # Replace with the actual user ID who added the review
+delete_book_review(review_id, user_id)
+
+  // Task 10: Get all books - Using async callback function
+app.get('/books', (req, res) => {
+  axios.get('https://api.example.com/books')
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: 'Internal Server Error' });
+    });
+});
+
+// Task 11: Search by ISBN - Using Promises
+app.get('/books/isbn/:isbn', async (req, res) => {
+  const isbn = req.params.isbn;
+  try {
+    const response = await axios.get(`https://api.example.com/books?isbn=${isbn}`);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Task 12: Search by Author
+app.get('/books/author/:author', (req, res) => {
+  const author = req.params.author;
+  axios.get(`https://api.example.com/books?author=${author}`)
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: 'Internal Server Error' });
+    });
+});
+
+// Task 13: Search by Title
+app.get('/books/title/:title', async (req, res) => {
+  const title = req.params.title;
+  try {
+    const response = await axios.get(`https://api.example.com/books?title=${title}`);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
